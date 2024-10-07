@@ -183,6 +183,10 @@
     <div class="columns is-centered has-text-centered">
       <div class="column is-full">
         <h2 class="title is-3">Problem Setting</h2>
+        <p style="text-align: left;">
+          We evaluate all agents in two problem settings: JAT/Gato Environments and ProcGen Environments. Select the problem setting in the dropdown menu to view an explanatory image.
+        </p>
+        <br>
         <div class="select">
           <select id="problemSetting" class="custom-dropdown" onchange="updateSettingImage()">
             <option value="JAT/Gato Environments">JAT/Gato Environments</option>
@@ -203,7 +207,23 @@
     <!-- Architecture -->
     <div class="columns is-centered has-text-centered">
       <div class="column is-full">
-        <h2 class="title is-3">Architecture</h2>
+        <h2 class="title is-3">Architecture of REGENT and Retrieve-and-Play</h2>
+        <p>
+          <b>REGENT</b>, shown in the GIF below, can be described in four steps:
+        </p>
+        <br>
+        <p style="text-align: left;">
+          <b>(1)</b> A query state (from the unseen environment during deployment or from training environments' datasets during pre-training) is processed for retrieval. 
+          <b>(2)</b> The n nearest states from a few demonstrations in an unseen environment or from a designated retrieval subset of pre-training environments' datasets are retrieved. 
+          These states, and their corresponding previous rewards and actions, are added to the context in order of their closeness to the query state, followed by the query state and previous reward. 
+          <b>(3)</b> The predictions from the REGENT transformer are combined with the first retrieved action. 
+          <b>(4)</b> At deployment, only the predicted query action is used. During pre-training, the loss from predicting all actions is used to train the transformer.
+        </p>
+        <br>
+        <p>
+          <b>Retrieve-and-Play</b>, our simple and strong baseline for today's state-of-the-art generalist agents, simply retrieves the nearest state (s') and plays the corresponding action (a').
+        </p>
+        <br>
         <!-- Button to restart the GIF -->
         <button class="button restart-button" onclick="restartGif()">Restart GIF</button>
         <!--/ Button to restart the GIF -->
@@ -362,57 +382,217 @@
 </script>
 
 
-<!-- Carousel of videos in unseen Environments -->
-<section class="hero is-light is-small">
-  <div class="hero-body">
-    <div class="container">
-      <h2 class="title has-text-centered is-3">Select REGENT rollouts in unseen Environments</h2>
-      <div id="results-carousel-metaworld" class="carousel results-carousel">
-        <div class="item item-metaworld-bin-picking">
-          <video poster="" id="metaworld-bin-picking" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/metaworld-bin-picking.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-metaworld-box-close">
-          <video poster="" id="metaworld-box-close" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/metaworld-box-close.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-metaworld-door-lock">
-          <video poster="" id="metaworld-door-lock" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/metaworld-door-lock.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-metaworld-door-unlock">
-          <video poster="" id="metaworld-door-unlock" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/metaworld-door-unlock.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-metaworld-hand-insert">
-          <video poster="" id="metaworld-hand-insert" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/metaworld-hand-insert.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-atari-pong">
-          <video poster="" id="atari-pong" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/atari-pong.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-atari-alien">
-          <video poster="" id="atari-alien" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/atari-alien.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-atari-mspacman">
-          <video poster="" id="atari-mspacman" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/atari-mspacman.mp4" type="video/mp4">
-          </video>
+<!-- Select REGENT rollouts in unseen environments -->
+<section class="section">
+  <h2 class="title is-3 has-text-centered">Select REGENT rollouts in unseen environments</h2>
+  <br>
+  <div class="container">
+    <!-- First Row for Titles and Videos with Gray Boxes -->
+    <div class="columns">
+      
+      <!-- First Title and Videos (Gray Box) -->
+      <div class="column has-text-centered">
+        <div style="border: 0px solid lightgray; padding: 10px; background-color: #f9f9f9;">
+          <h5 class="title is-4">metaworld-bin-picking</h5>
+          <div class="columns">
+            <!-- First video -->
+            <div class="column">
+              <video width="100%" controls>
+                <source src="metaworld-bin-picking_1.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+            <!-- Second video -->
+            <div class="column">
+              <video width="100%" controls>
+                <source src="metaworld-bin-picking_2.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </div>
         </div>
       </div>
+
+      <!-- Second Title and Videos (Gray Box) -->
+      <div class="column has-text-centered">
+        <div style="border: 0px solid lightgray; padding: 10px; background-color: #f9f9f9;">
+          <h5 class="title is-4">metaworld-box-close</h5>
+            <div class="columns">
+            <!-- Third video -->
+            <div class="column">
+              <video width="100%" controls>
+                <source src="metaworld-box-close_1.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+            <!-- Fourth video -->
+            <div class="column">
+              <video width="100%" controls>
+                <source src="metaworld-box-close_2.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Second Row for Titles and Videos with Gray Boxes -->
+    <div class="columns">
+      
+      <!-- First Title and Videos (Gray Box) -->
+      <div class="column has-text-centered">
+        <div style="border: 0px solid lightgray; padding: 10px; background-color: #f9f9f9;">
+          <h5 class="title is-4">metaworld-door-lock</h5>
+          <div class="columns">
+            <!-- First video -->
+            <div class="column">
+              <video width="100%" controls>
+                <source src="metaworld-door-lock_1.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+            <!-- Second video -->
+            <div class="column">
+              <video width="100%" controls>
+                <source src="metaworld-door-lock_2.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Second Title and Videos (Gray Box) -->
+      <div class="column has-text-centered">
+        <div style="border: 0px solid lightgray; padding: 10px; background-color: #f9f9f9;">
+          <h5 class="title is-4">metaworld-door-unlock</h5>
+            <div class="columns">
+            <!-- Third video -->
+            <div class="column">
+              <video width="100%" controls>
+                <source src="metaworld-door-unlock_1.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+            <!-- Fourth video -->
+            <div class="column">
+              <video width="100%" controls>
+                <source src="metaworld-door-unlock_2.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Third Row for Titles and Videos with Gray Boxes -->
+    <div class="columns">
+      
+      <!-- First Title and Videos (Gray Box) -->
+      <div class="column has-text-centered">
+        <div style="border: 0px solid lightgray; padding: 10px; background-color: #f9f9f9;">
+          <h5 class="title is-4">atari-pong</h5>
+          <div class="columns">
+            <!-- First video -->
+            <div class="column">
+              <video width="100%" controls>
+                <source src="atari-pong_1.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+            <!-- Second video -->
+            <div class="column">
+              <video width="100%" controls>
+                <source src="atari-pong_2.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Second Title and Videos (Gray Box) -->
+      <div class="column has-text-centered">
+        <div style="border: 0px solid lightgray; padding: 10px; background-color: #f9f9f9;">
+          <h5 class="title is-4">metaworld-hand-insert</h5>
+            <div class="columns">
+            <!-- Third video -->
+            <div class="column">
+              <video width="100%" controls>
+                <source src="metaworld-hand-insert_1.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+            <!-- Fourth video -->
+            <div class="column">
+              <video width="100%" controls>
+                <source src="metaworld-hand-insert_2.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Fourth Row for Titles and Videos with Gray Boxes -->
+    <div class="columns">
+      
+      <!-- First Title and Videos (Gray Box) -->
+      <div class="column has-text-centered">
+        <div style="border: 0px solid lightgray; padding: 10px; background-color: #f9f9f9;">
+          <h5 class="title is-4">atari-mspacman</h5>
+          <div class="columns">
+            <!-- First video -->
+            <div class="column">
+              <video width="100%" controls>
+                <source src="atari-mspacman_1.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+            <!-- Second video -->
+            <div class="column">
+              <video width="100%" controls>
+                <source src="atari-mspacman_2.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Second Title and Videos (Gray Box) -->
+      <div class="column has-text-centered">
+        <div style="border: 0px solid lightgray; padding: 10px; background-color: #f9f9f9;">
+          <h5 class="title is-4">atari-alien</h5>
+            <div class="columns">
+            <!-- Third video -->
+            <div class="column">
+              <video width="100%" controls>
+                <source src="atari-alien_1.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+            <!-- Fourth video -->
+            <div class="column">
+              <video width="100%" controls>
+                <source src="atari-alien_2.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
-<!--/ Carousel of videos in unseen Environments -->
+<!--/ Select REGENT rollouts in unseen environments -->
 
 
 <section class="section" id="BibTeX">
