@@ -209,7 +209,7 @@
       <div class="column is-full">
         <h2 class="title is-3">Architecture of REGENT and Retrieve-and-Play</h2>
         <p>
-          <b>REGENT</b>, shown in the GIF below, can be described in four steps:
+          <b>REGENT</b>, shown in the GIF below, can be described in the following four steps. Use the restart gif button to replay the gif from the start.
         </p>
         <br>
         <p style="text-align: left;">
@@ -221,11 +221,11 @@
         </p>
         <br>
         <p>
-          <b>Retrieve-and-Play</b>, our simple and strong baseline for today's state-of-the-art generalist agents, simply retrieves the nearest state (s') and plays the corresponding action (a').
+          <b>Retrieve-and-Play (R&P)</b>, our simple and strong baseline for today's state-of-the-art generalist agents, simply retrieves the nearest state (s') and plays the corresponding action (a').
         </p>
         <br>
         <!-- Button to restart the GIF -->
-        <button class="button restart-button" onclick="restartGif()">Restart GIF</button>
+        <button class="button restart-button" onclick="restartArchitectureGif()">Restart GIF</button>
         <!--/ Button to restart the GIF -->
         <br>
         <div class="gif-container">
@@ -270,10 +270,15 @@
     </div>
     <!--/ Dropdown to select results in which problem setting -->
 
-    <!-- Dropdown to select qualitative viz -->
+    <!-- Dropdown to select qualitative viz GIF -->
     <div class="columns is-centered has-text-centered">
       <div class="column is-full">
         <h2 class="title is-3">Qualitative Visualization</h2>
+        <p>
+          Here, we plot examples of a few inputs and outputs of REGENT for two states in a rendered rollout in the unseen atari-pong and metaworld-bin-picking environemnts. 
+          Use the dropdown menu to toggle between the two. The restart gif button replays the gif from the start.
+        </p>
+        <br>
         <div class="select">
           <select id="qualitativeViz" class="custom-dropdown" onchange="updateQualitativeImage()">
             <option value="In atari-pong">In atari-pong</option>
@@ -282,14 +287,21 @@
         </div>
         <br>
         <br>
-        <!-- Image that changes based on selection -->
-        <figure>
-          <img id="qualitativeImage" src="static/images/qualitative_pong.png" alt="In atari-pong" style="max-width:100%;">
-        </figure>
-        <!--/ Image that changes based on selection -->
+        <!-- GIF and paragraph that changes based on selection -->
+        <!-- Button to restart the GIF -->
+        <button class="button restart-button" onclick="restartQualitativeGif()">Restart GIF</button>
+        <!--/ Button to restart the GIF -->
+        <br>
+        <div class="gif-container">
+          <img id="qualitativeGif" src="static/images/qualitative_pong_1_loop.gif" alt="In atari-pong" style="width: 100%; height: auto;">
+        </div>
+        <p id="qualitativeDescription">REGENT leverages its in-context learning capabilities and interpolation with R&P to either 
+          make a simple decision and predict the same action as R&P (see blue box on the right) or predict better actions at key states (see black box on the left) 
+          that leads to better overall performance as seen in results above.</p>
+        <!--/ GIF and paragraph that changes based on selection -->
       </div>
     </div>
-    <!--/ Dropdown to select qualitative viz -->
+    <!--/ Dropdown to select qualitative viz GIF -->
   </div>
 </section>
 
@@ -335,8 +347,17 @@
     }
   }
 
-  function restartGif() {
+  function restartArchitectureGif() {
     var gif = document.getElementById("architectureGif");
+    var currentSrc = gif.src;
+    
+    // Reset the src attribute to restart the GIF
+    gif.src = '';
+    gif.src = currentSrc;
+  }
+
+  function restartQualitativeGif() {
+    var gif = document.getElementById("qualitativeGif");
     var currentSrc = gif.src;
     
     // Reset the src attribute to restart the GIF
@@ -369,14 +390,17 @@
 
   function updateQualitativeImage() {
     var setting = document.getElementById("qualitativeViz").value;
-    var image = document.getElementById("qualitativeImage");
+    var image = document.getElementById("qualitativeGif");
+    var description = document.getElementById("qualitativeDescription");
     
     if (setting === "In atari-pong") {
-      image.src = "static/images/qualitative_pong.png";
+      image.src = "static/images/qualitative_pong_1_loop.gif";
       image.alt = "In atari-pong";
+      description.textContent = "REGENT leverages its in-context learning capabilities and interpolation with R&P to either make a simple decision and predict the same action as R&P (see blue box on the right) or predict better actions at key states (see black box on the left) that leads to better overall performance as seen in results above.";
     } else if (setting === "In metaworld-bin-picking") {
-      image.src = "static/images/qualitative_meta.png";
+      image.src = "static/images/qualitative_meta_1_loop.gif";
       image.alt = "In metaworld-bin-picking";
+      description.textContent = "REGENT can be seen predicting actions that are somewhat similar to but not the same as the first retrieved (R&P) action. These differences, a direct result of its in-context learning capabilities, lead to better overall performance as seen in our results above.";
     }
   }
 </script>
