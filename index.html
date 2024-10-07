@@ -243,12 +243,33 @@
         <br>
         <!-- Image that changes based on selection -->
         <figure>
-          <img id="experimentalImage" src="static/images_jat/unseen_all_all_data.png" alt="JAT/Gato Environments" style="max-width:100%;">
+          <img id="experimentalImage" src="static/images_jat/unseen_all_all_data.png" alt="JAT/Gato Unseen Metaworld and Atari Environments" style="max-width:100%;">
         </figure>
         <!--/ Image that changes based on selection -->
       </div>
     </div>
     <!--/ Dropdown to select results in which problem setting -->
+
+    <!-- Dropdown to select qualitative viz -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full">
+        <h2 class="title is-3">Qualitative Visualization</h2>
+        <div class="select">
+          <select id="qualitativeViz" class="custom-dropdown" onchange="updateQualitativeImage()">
+            <option value="In atari-pong">In atari-pong</option>
+            <option value="In metaworld-bin-picking">In metaworld-bin-picking</option>
+          </select>
+        </div>
+        <br>
+        <br>
+        <!-- Image that changes based on selection -->
+        <figure>
+          <img id="qualitativeImage" src="static/images/qualitative_pong.png" alt="In atari-pong" style="max-width:100%;">
+        </figure>
+        <!--/ Image that changes based on selection -->
+      </div>
+    </div>
+    <!--/ Dropdown to select qualitative viz -->
   </div>
 </section>
 
@@ -323,6 +344,19 @@
       image.src = "static/images_procgen/id_env_p_0.1.png";
       image.alt = "ProcGen Unseen Levels of Training Environments";
       image.style="max-width:100%;";
+    }
+  }
+
+  function updateQualitativeImage() {
+    var setting = document.getElementById("qualitativeViz").value;
+    var image = document.getElementById("qualitativeImage");
+    
+    if (setting === "In atari-pong") {
+      image.src = "static/images/qualitative_pong.png";
+      image.alt = "In atari-pong";
+    } else if (setting === "In metaworld-bin-picking") {
+      image.src = "static/images/qualitative_meta.png";
+      image.alt = "In metaworld-bin-picking";
     }
   }
 </script>
