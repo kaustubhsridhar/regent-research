@@ -251,6 +251,15 @@
     <div class="columns is-centered has-text-centered">
       <div class="column is-full">
         <h2 class="title is-3">Experimental Evaluation in Unseen Environments</h2>
+        <p>
+          We plot the normalized return obtained by all methods in various unseen environments for various number of demonstrations. 
+          Use the dropdown menu to toggle amongst the four figures.
+          We compare with <a href="https://arxiv.org/abs/2402.09844">JAT</a> (from Huggingface), an open source reproduction of <a href="https://arxiv.org/abs/2205.06175">Gato</a> (from Google Deepmind). 
+          We compare with JAT/Gato (All Data) which is a model pre-trained on 5-10x the data used by REGENT.
+          We also compare with JAT/Gato after it is finetuned on the few demonstrations that are available in each unseen environment.
+          We compare with <a href="https://arxiv.org/abs/2312.03801">MTT</a> (from Meta) on the ProcGen environments, where it was pretrained on a order-of-magnitude more data than REGENT.
+        </p>
+        <br>
         <div class="select">
           <select id="experimentalEvaluation" class="custom-dropdown" onchange="updateExperimentsImage()">
             <option value="JAT/Gato Unseen Metaworld and Atari Environments">JAT/Gato Unseen Metaworld and Atari Environments</option>
@@ -261,11 +270,12 @@
         </div>
         <br>
         <br>
-        <!-- Image that changes based on selection -->
+        <!-- Image and paragraph that changes based on selection -->
         <figure>
           <img id="experimentalImage" src="static/images_jat/unseen_all_all_data.png" alt="JAT/Gato Unseen Metaworld and Atari Environments" style="max-width:100%;">
         </figure>
-        <!--/ Image that changes based on selection -->
+        <p id="experimentalDescription"></p>
+        <!--/ Image and paragraph that changes based on selection -->
       </div>
     </div>
     <!--/ Dropdown to select results in which problem setting -->
@@ -368,23 +378,28 @@
   function updateExperimentsImage() {
     var setting = document.getElementById("experimentalEvaluation").value;
     var image = document.getElementById("experimentalImage");
+    var description = document.getElementById("experimentalDescription");
     
     if (setting === "JAT/Gato Unseen Metaworld and Atari Environments") {
       image.src = "static/images_jat/unseen_all_all_data.png";
       image.alt = "JAT/Gato Unseen Metaworld and Atari Environments";
       image.style="max-width:100%;";
+      description.textContent = "";
     } else if (setting === "JAT/Gato Unseen Mujoco Environments") {
       image.src = "static/images_jat/unseen_mujoco_all_data.png";
       image.alt = "JAT/Gato Unseen Mujoco Environments";
       image.style="max-width:50%;";
+      description.textContent = "";
     } else if (setting === "ProcGen Unseen Environments") {
       image.src = "static/images_procgen/ood_env_p_0.2.png";
       image.alt = "ProcGen Unseen Environments";
       image.style="max-width:100%;";
+      description.textContent = "";
     } else if (setting === "ProcGen Unseen Levels of Training Environments") {
       image.src = "static/images_procgen/id_env_p_0.1.png";
       image.alt = "ProcGen Unseen Levels of Training Environments";
       image.style="max-width:100%;";
+      description.textContent = "";
     }
   }
 
