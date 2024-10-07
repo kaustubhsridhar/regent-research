@@ -255,7 +255,7 @@
           We plot the normalized return obtained by all methods in various unseen environments for various number of demonstrations. 
           Use the dropdown menu to toggle amongst the four figures.
           We compare with <a href="https://arxiv.org/abs/2402.09844">JAT</a> (from Huggingface), an open source reproduction of <a href="https://arxiv.org/abs/2205.06175">Gato</a> (from Google Deepmind). 
-          We compare with JAT/Gato (All Data) which is a model pre-trained on 5-10x the data used by REGENT.
+          Its 'All Data' variant is pre-trained on 5-10x the data used by REGENT.
           We also compare with JAT/Gato after it is finetuned on the few demonstrations that are available in each unseen environment.
           We compare with <a href="https://arxiv.org/abs/2312.03801">MTT</a> (from Meta) on the ProcGen environments, where it was pretrained on a order-of-magnitude more data than REGENT.
         </p>
@@ -274,7 +274,9 @@
         <figure>
           <img id="experimentalImage" src="static/images_jat/unseen_all_all_data.png" alt="JAT/Gato Unseen Metaworld and Atari Environments" style="max-width:100%;">
         </figure>
-        <p id="experimentalDescription"></p>
+        <br>
+        <p id="experimentalDescription">We observe that R&P and REGENT can generalize well to unseen metaworld and atari environments. R&P is a surprisingly strong baseline, but REGENT improves on R&P consistently. JAT/Gato cannot generalize to most unseen environments. REGENT (and even R&P) outperform even the 'All Data' variants of JAT/Gato which were pre-trained on 5-10x the amount of data. Both JAT/Gato models struggle to perform even after finetuning. But, REGENT further improves after finetuning, even with only a few demonstrations. To highlight REGENT's ability to adapt, we note that we only vary the number of states in Atari demonstrations until 25k. The closest generalist policy that finetunes to new Atari environments, <a href='https://arxiv.org/abs/2205.15241'>MGDT</a> (from Google Deepmind), requires 1M transitions.
+        </p>
         <!--/ Image and paragraph that changes based on selection -->
       </div>
     </div>
@@ -305,6 +307,7 @@
         <div class="gif-container">
           <img id="qualitativeGif" src="static/images/qualitative_pong_1_loop.gif" alt="In atari-pong" style="width: 100%; height: auto;">
         </div>
+        <br>
         <p id="qualitativeDescription">REGENT leverages its in-context learning capabilities and interpolation with R&P to either 
           make a simple decision and predict the same action as R&P (see blue box on the right) or predict better actions at key states (see black box on the left) 
           that leads to better overall performance as seen in results above.</p>
@@ -384,22 +387,22 @@
       image.src = "static/images_jat/unseen_all_all_data.png";
       image.alt = "JAT/Gato Unseen Metaworld and Atari Environments";
       image.style="max-width:100%;";
-      description.textContent = "";
+      description.innerHTML = "We observe that R&P and REGENT can generalize well to unseen metaworld and atari environments. R&P is a surprisingly strong baseline, but REGENT improves on R&P consistently. JAT/Gato cannot generalize to most unseen environments. REGENT (and even R&P) outperform even the 'All Data' variants of JAT/Gato which were pre-trained on 5-10x the amount of data. Both JAT/Gato models struggle to perform even after finetuning. But, REGENT further improves after finetuning, even with only a few demonstrations. To highlight REGENT's ability to adapt, we note that we only vary the number of states in Atari demonstrations until 25k. The closest generalist policy that finetunes to new Atari environments, <a href='https://arxiv.org/abs/2205.15241'>MGDT</a> (from Google Deepmind), requires 1M transitions.";
     } else if (setting === "JAT/Gato Unseen Mujoco Environments") {
       image.src = "static/images_jat/unseen_mujoco_all_data.png";
       image.alt = "JAT/Gato Unseen Mujoco Environments";
       image.style="max-width:50%;";
-      description.textContent = "";
+      description.innerHTML = "R&P appears to be a strong baseline even at generalizing to new embodiments! Moreover, after finetuning on just 25 demonstrations, only REGENT, not JAT/Gato, significantly improves to outperform other methods and only continues to get better with more demonstrations.";
     } else if (setting === "ProcGen Unseen Environments") {
       image.src = "static/images_procgen/ood_env_p_0.2.png";
       image.alt = "ProcGen Unseen Environments";
       image.style="max-width:100%;";
-      description.textContent = "";
+      description.innerHTML = "Similar to the JAT/Gato environments, we observe that R&P and REGENT can generalize well to unseen metaworld and atari environments. R&P is a surprisingly strong baseline, but REGENT improves on R&P consistently. Both outperform MTT.";
     } else if (setting === "ProcGen Unseen Levels of Training Environments") {
       image.src = "static/images_procgen/id_env_p_0.1.png";
       image.alt = "ProcGen Unseen Levels of Training Environments";
       image.style="max-width:100%;";
-      description.textContent = "";
+      description.innerHTML = "We again observe that REGENT performs the best in unseen levels while R&P remains a strong baseline. We also depict the performance of REGENT on seen levels of these training environments with a dotted line. This represents an upper bound for REGENT's performance in unseen levels.";
     }
   }
 
