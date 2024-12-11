@@ -485,7 +485,7 @@
       image.src = "static/images_ablations/context_order_ablations_unseen_all_all_data.png";
       image.alt = "Context Order Ablations";
       image.style="max-width:100%;";
-      description.innerHTML = "In the 'current' order, the retrieved tuples of (state, previous reward, action) are placed in order of their closeness to the query state. In 'random-permuted', the retrieved tuples are placed in a randomly chosen order in the context. In 'reverse', the 'current' order of the retrieved tuples is reversed with the furthest state in the 19 retrieved states placed first. Our current choice performs the best overall.";
+      description.innerHTML = "We evaluated three options: 'current', 'random-permuted', and 'reverse'. In the 'current' order, the retrieved tuples of (state, previous reward, action) are placed in order of their closeness to the query state. In 'random-permuted', the retrieved tuples are placed in a randomly chosen order in the context. In 'reverse', the 'current' order of the retrieved tuples is reversed with the furthest state in the 19 retrieved states placed first. Our current choice performs the best overall.";
     } else if (setting === "Inference Time Ablations") {
       image.src = "static/images_ablations/timing_check_unseen_metaworld_all_data.png";
       image.alt = "Inference Time Ablations";
