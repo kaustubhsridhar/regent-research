@@ -289,7 +289,7 @@
           <img id="experimentalImage" src="static/images_jat/unseen_all_all_data.png" alt="JAT/Gato Unseen Metaworld and Atari Environments" style="max-width:100%;">
         </figure>
         <br>
-        <p id="experimentalDescription">We observe that R&P and REGENT can generalize well to unseen metaworld and atari environments. R&P is a surprisingly strong baseline, but REGENT improves on R&P consistently. JAT/Gato cannot generalize to most unseen environments. REGENT (and even R&P) outperform even the 'All Data' variants of JAT/Gato which were pre-trained on 5-10x the amount of data. Both JAT/Gato models struggle to perform even after finetuning. But, REGENT further improves after finetuning, even with only a few demonstrations. To highlight REGENT's ability to adapt, we note that we only vary the number of states in Atari demonstrations until 25k. The closest generalist policy that finetunes to new Atari environments, <a href='https://arxiv.org/abs/2205.15241'>MGDT</a> (from Google Deepmind), requires 1M transitions.
+        <p id="experimentalDescription">We observe that R&P and REGENT can generalize well to unseen metaworld and atari environments. R&P is a surprisingly strong baseline, but REGENT improves on R&P consistently. JAT/Gato cannot generalize to most unseen environments. REGENT (and even R&P) outperform even the 'All Data' variants of JAT/Gato which were pre-trained on 5-10x the amount of data. Both JAT/Gato models struggle to perform after full finetuning and perform slightly better after PEFT. REGENT (and even R&P), without any finetuning, outperforms all finetuned variants of JAT/Gato. REGENT further improves after finetuning, even with only a few demonstrations. To highlight REGENT's ability to adapt, we note that we only vary the number of states in Atari demonstrations until 25k. The closest generalist policy that finetunes to new Atari environments, <a href='https://arxiv.org/abs/2205.15241'>MGDT</a> (from Google Deepmind), requires 1M transitions.
         </p>
         <!--/ Image and paragraph that changes based on selection -->
       </div>
@@ -329,6 +329,36 @@
       </div>
     </div>
     <!--/ Dropdown to select qualitative viz GIF -->
+
+    <!-- Dropdown to select ablations -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full">
+        <h2 class="title is-3">Experimental Ablations</h2>
+        <p>
+          We plot the normalized return obtained by REGENT after ablating key components.
+        </p>
+        <br>
+        <div class="select">
+          <select id="ablationEvaluation" class="custom-dropdown" onchange="updateAblationsImage()">
+            <option value="Context Size Ablations">Context Size Ablations</option>
+            <option value="Context Order Ablations">Context Order Ablations</option>
+            <option value="Inference Time Ablations">Inference Time Ablations</option>
+          </select>
+        </div>
+        <br>
+        <br>
+        <!-- Image and paragraph that changes based on selection -->
+        <figure>
+          <img id="ablationImage" src="static/images_ablations/context_size_ablations_unseen_all_all_data.png" alt="Context Size Ablations" style="max-width:100%;">
+        </figure>
+        <br>
+        <p id="experimentalDescription">A larger context size leads to better performance in general (but this increase saturates quickly).
+        </p>
+        <!--/ Image and paragraph that changes based on selection -->
+      </div>
+    </div>
+    <!--/ Dropdown to select ablations -->
+    
   </div>
 </section>
 
@@ -438,6 +468,29 @@
       image.src = "static/images/qualitative_meta_1_loop.gif";
       image.alt = "In metaworld-bin-picking";
       description.textContent = "REGENT can be seen predicting actions that are somewhat similar to but not the same as the first retrieved (R&P) action. These differences, a direct result of its in-context learning capabilities, lead to better overall performance as seen in our results above.";
+    }
+  }
+
+  function updateAblationsImage() {
+    var setting = document.getElementById("ablationEvaluation").value;
+    var image = document.getElementById("ablationImage");
+    var description = document.getElementById("ablationDescription");
+    
+    if (setting === "Context Size Ablations") {
+      image.src = "static/images_ablations/context_size_ablations_unseen_all_all_data.png";
+      image.alt = "Context Size Ablations";
+      image.style="max-width:100%;";
+      description.innerHTML = "A larger context size leads to better performance in general (but this increase saturates quickly)."
+    } else if (setting === "Context Order Ablations") {
+      image.src = "static/images_ablations/context_order_ablations_unseen_all_all_data.png";
+      image.alt = "Context Order Ablations";
+      image.style="max-width:50%;";
+      description.innerHTML = "In the 'current' order, the retrieved tuples of (state, previous reward, action) are placed in order of their closeness to the query state. In 'random-permuted', the retrieved tuples are placed in a randomly chosen order in the context. In 'reverse', the 'current' order of the retrieved tuples is reversed with the furthest state in the 19 retrieved states placed first. Our current choice performs the best overall."
+    } else if (setting === "Inference Time Ablations") {
+      image.src = "static/images_ablations/timing_check_unseen_metaworld_all_data.png";
+      image.alt = "Inference Time Ablations";
+      image.style="max-width:100%;";
+      description.innerHTML = "The retrieval and forward propagation runtimes are small enough to allow real-time deployment of REGENT on real robots."
     }
   }
 </script>
